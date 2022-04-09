@@ -14,6 +14,7 @@ public class CommentResponseDto {
 
 
     public CommentResponseDto(Comment comment, UserInfoDto userInfo) {
+        this.userId = comment.getUserId();
         this.userInfo = userInfo;
         this.boardId = comment.getBoardId();
         this.comment = comment.getComment();
