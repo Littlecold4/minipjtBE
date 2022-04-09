@@ -35,3 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
+src/main/java/com/sprata/minipjtbe/security/S3/application-aws.yml
