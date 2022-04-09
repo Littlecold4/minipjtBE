@@ -6,17 +6,20 @@ import com.sprata.minipjtbe.model.User;
 import com.sprata.minipjtbe.repository.UserRepository;
 import com.sprata.minipjtbe.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final Validator validator;
+    private final PasswordEncoder encoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, Validator validator){
+    public UserService(UserRepository userRepository, Validator validator, PasswordEncoder encoder){
         this.userRepository = userRepository;
         this.validator = validator;
+        this.encoder = encoder;
     }
 
     // 회원가입
@@ -32,6 +35,7 @@ public class UserService {
             return msg;
         }
 
+        signupRequestDto.setPassword(encoder.encode(signupRequestDto.getPassword()));
         userRepository.save(new User(signupRequestDto));
         return msg;
     }

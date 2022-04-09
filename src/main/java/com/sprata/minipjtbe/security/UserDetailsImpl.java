@@ -2,10 +2,8 @@ package com.sprata.minipjtbe.security;
 
 import com.sprata.minipjtbe.model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class UserDetailsImpl implements UserDetails {
@@ -27,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUserEmail();
+        return user.getUsername();
     }
 
     @Override
