@@ -27,10 +27,12 @@ public class CommentService {
         List<Comment> commentList = commentRepository.findAllByBoardId(boardId);
         List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
         for(Comment comment : commentList){
-            Optional<User> user= userRepository.findById(comment.getUserId());
+            User user= userRepository.findById(comment.getUserId()).orElseThrow(
+                    () -> new IllegalArgumentException("not found")
+                    );
             UserInfoDto userInfoDto = new UserInfoDto();
-            userInfoDto.setNickname(user.get().getNickname());
-            userInfoDto.setUsername(user.get().getUsername());
+            userInfoDto.setNickname(user.getNickname());
+            userInfoDto.setUsername(user.getUsername());
             CommentResponseDto commentResponseDto = new CommentResponseDto(comment, userInfoDto);
             commentResponseDtoList.add(commentResponseDto);
         }
