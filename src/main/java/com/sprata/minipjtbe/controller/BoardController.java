@@ -50,7 +50,7 @@ public class BoardController {
         return boardService.showFavoriteBoard(userid);
     }
 
-    //상세보기
+    //상세페이지
     @GetMapping("/api/board/detail/{boardid}")
     public BoardsDto showBoardDetail(@PathVariable Long boardid){
         return boardService.showBoardDetail(boardid);
