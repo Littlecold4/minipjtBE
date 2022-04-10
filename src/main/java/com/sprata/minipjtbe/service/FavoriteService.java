@@ -28,6 +28,7 @@ public class FavoriteService {
         Long userId = favoriteDto.getUserId();
         Long boardId = favoriteDto.getBoardId();
         Optional<Favorite> favorite = favoriteRepository.findByBoardIdAndUserId(boardId,userId);
+
         if (favorite.isPresent()){
             favoriteRepository.deleteById(favorite.get().getId());
         }
