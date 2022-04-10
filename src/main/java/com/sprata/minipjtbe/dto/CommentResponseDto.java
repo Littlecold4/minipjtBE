@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class CommentResponseDto {
+    private Long id;
     private Long userId;
     private UserInfoDto userInfo;
     private Long boardId;
@@ -18,6 +19,7 @@ public class CommentResponseDto {
 
 
     public CommentResponseDto(Comment comment, UserInfoDto userInfo) {
+        this.id = comment.getId();
         this.userId = comment.getUserId();
         this.userInfo = userInfo;
         this.boardId = comment.getBoardId();
