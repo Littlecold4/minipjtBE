@@ -28,8 +28,8 @@ public class CommentService {
         List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
         for(Comment comment : commentList){
             User user= userRepository.findById(comment.getUserId()).orElseThrow(
-                    ()->new IllegalArgumentException("유저 없음")
-            );
+                    () -> new IllegalArgumentException("not found")
+                    );
             UserInfoDto userInfoDto = new UserInfoDto();
             userInfoDto.setNickname(user.getNickname());
             userInfoDto.setUsername(user.getUsername());
