@@ -1,5 +1,6 @@
 package com.sprata.minipjtbe.model;
 
+import com.sprata.minipjtbe.dto.ImageDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,12 +14,18 @@ public class Image {
     @Id
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Long boardId;
 
-    @Column(nullable = false, unique = true)
-    private String nickname;
+    @Column(nullable = false)
+    private String fileUrl;
 
     @Column(nullable = false)
-    private String password;
+    private String fileName;
+
+    public Image(ImageDto imageDto){
+        this.boardId = imageDto.getBoardId();
+        this.fileUrl = imageDto.getFileUrl();
+        this.fileName = imageDto.getFileName();
+    }
 }
