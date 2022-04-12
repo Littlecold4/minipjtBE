@@ -24,13 +24,17 @@ public class Comment extends Timestamped{
     @Column(nullable = false)
     private String comment;
 
-    //userinfo OnetoOne(?)
+    @Column(nullable = false)
+    private Long parentId;
+
+
 
 
     public Comment(CommentRequestDto commentRequestDto) {
         this.userId = commentRequestDto.getUserId();
         this.boardId = commentRequestDto.getBoardId();
         this.comment = commentRequestDto.getComment();
+        this.parentId= commentRequestDto.getParentId();
     }
 
     public void update(CommentRequestDto commentRequestDto) {
