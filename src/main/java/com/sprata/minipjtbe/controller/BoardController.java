@@ -2,7 +2,6 @@ package com.sprata.minipjtbe.controller;
 
 import com.sprata.minipjtbe.dto.BoardDto;
 import com.sprata.minipjtbe.dto.BoardsDto;
-import com.sprata.minipjtbe.model.Board;
 import com.sprata.minipjtbe.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +16,7 @@ public class BoardController {
     //게시글 작성하기
     @PostMapping("/api/board/regist")
     public void registBoard(@RequestBody BoardDto boardDto){
+        System.out.println(boardDto);
         boardService.registBoard(boardDto);
     }
 
