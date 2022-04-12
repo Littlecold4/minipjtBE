@@ -2,7 +2,6 @@ package com.sprata.minipjtbe.controller;
 
 import com.sprata.minipjtbe.dto.CommentRequestDto;
 import com.sprata.minipjtbe.dto.CommentResponseDto;
-import com.sprata.minipjtbe.repository.CommentRepository;
 import com.sprata.minipjtbe.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
