@@ -28,13 +28,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JWTAuthProvider jwtAuthProvider;
     private final HeaderTokenExtractor headerTokenExtractor;
+    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
     public WebSecurityConfig(
             JWTAuthProvider jwtAuthProvider,
-            HeaderTokenExtractor headerTokenExtractor
+            HeaderTokenExtractor headerTokenExtractor,
+            CustomLogoutSuccessHandler customLogoutSuccessHandler
     ) {
         this.jwtAuthProvider = jwtAuthProvider;
         this.headerTokenExtractor = headerTokenExtractor;
+        this.customLogoutSuccessHandler = customLogoutSuccessHandler;
     }
 
     @Bean
@@ -86,6 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 // 로그아웃 요청 처리 URL
                 .logoutUrl("/user/logout")
+                .logoutSuccessHandler(customLogoutSuccessHandler)
                 .permitAll()
                 .and()
                 .exceptionHandling()
@@ -130,7 +134,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         skipPathList.add("GET,/api/**");
 
-        skipPathList.add("GET,/");
+
         skipPathList.add("GET,/basic.js");
 
         skipPathList.add("GET,/favicon.ico");
