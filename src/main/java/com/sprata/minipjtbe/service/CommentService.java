@@ -27,9 +27,9 @@ public class CommentService {
     public List<CommentResponseDto> getComment(Long boardId) {
         List<Comment> commentList = commentRepository.findAllByBoardId(boardId);
         List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
-        for (Comment comment : commentList) {
-            User user = userRepository.findById(comment.getUserId()).orElseThrow(
-                    () -> new IllegalArgumentException("not found")
+        for(Comment comment : commentList){
+            User user= userRepository.findById(comment.getUserId()).orElseThrow(
+                    ()->new IllegalArgumentException("유저 없음")
             );
             UserInfoDto userInfoDto = new UserInfoDto();
             userInfoDto.setNickname(user.getNickname());
