@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -26,9 +27,6 @@ public class Comment extends Timestamped{
 
     @Column(nullable = false)
     private Long parentId;
-
-
-
 
     public Comment(CommentRequestDto commentRequestDto) {
         this.userId = commentRequestDto.getUserId();
