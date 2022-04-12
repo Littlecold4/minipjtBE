@@ -1,7 +1,9 @@
 package com.sprata.minipjtbe.service;
 
+
 import com.sprata.minipjtbe.dto.BoardRequestDto;
 import com.sprata.minipjtbe.dto.BoardResponseDto;
+import com.sprata.minipjtbe.dto.ImageRequestDto;
 import com.sprata.minipjtbe.dto.UserInfoDto;
 import com.sprata.minipjtbe.model.Board;
 import com.sprata.minipjtbe.model.Favorite;
@@ -11,7 +13,9 @@ import com.sprata.minipjtbe.utils.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +28,13 @@ public class BoardService {
     private final Validator validator;
     private final CommentRepository commentRepository;
     private final ImageRepository imageRepository;
+    private final ImageService imageService;
 
-    public String registBoard(BoardRequestDto boardRequestDto){
+    public String registBoard(BoardRequestDto boardRequestDto, MultipartFile file) throws IOException {
         validator.sameContent(boardRequestDto.getContent() == null, "내용을 입력하세요");
         Board board = new Board(boardRequestDto);
-        boardRepository.save(board);
-        Long postId = boardRepository.findBoardByContent(boardRequestDto.getContent()).getId();
 
+        imageService.upload(new ImageRequestDto(boardRepository.save(board).getId(), file));
         return "등록 성공하였습니다.";
     }
 

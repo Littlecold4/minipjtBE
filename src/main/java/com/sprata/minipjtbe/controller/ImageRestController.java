@@ -1,9 +1,9 @@
 package com.sprata.minipjtbe.controller;
 
-import com.sprata.minipjtbe.dto.ImageRequestDto;
 import com.sprata.minipjtbe.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -18,8 +18,10 @@ public class ImageRestController {
 
     // 사진 등록
     @PostMapping("/api/board/photo")
-    public void upload(@RequestBody ImageRequestDto imageRequestDto) throws IOException {
-        imageService.upload(imageRequestDto, "static");
+    public void upload(@RequestParam("files") MultipartFile file, @RequestParam("boardId") Long id) throws IOException {
+        System.out.println(file);
+        System.out.println(id);
+//        imageService.upload(imageRequestDto, "static");
     }
 
     // 사진 삭제
