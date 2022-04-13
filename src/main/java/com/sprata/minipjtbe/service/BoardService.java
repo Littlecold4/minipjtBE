@@ -4,7 +4,6 @@ package com.sprata.minipjtbe.service;
 import com.sprata.minipjtbe.dto.BoardRequestDto;
 import com.sprata.minipjtbe.dto.BoardResponseDto;
 import com.sprata.minipjtbe.dto.ImageRequestDto;
-
 import com.sprata.minipjtbe.dto.UserInfoDto;
 import com.sprata.minipjtbe.model.Board;
 import com.sprata.minipjtbe.model.Favorite;
@@ -29,26 +28,35 @@ public class BoardService {
     private final Validator validator;
     private final CommentRepository commentRepository;
     private final ImageRepository imageRepository;
-
     private final ImageService imageService;
 
+
+    // 게시글 등록
     public String registBoard(BoardRequestDto boardRequestDto, MultipartFile file) throws IOException {
         validator.sameContent(boardRequestDto.getContent() == null, "내용을 입력하세요");
         Board board = new Board(boardRequestDto);
-
         imageService.upload(new ImageRequestDto(boardRepository.save(board).getId(), file));
-        return "등록 성공하였습니다.";
-    }
+        return "등록 성공하였습니다."; }
 
     //모든 게시글 보기
     public Page<BoardResponseDto> showAllBoard(int page, Long userId){
         List<Board> boardList= boardRepository.findAll();
         Pageable pageable = getPageable(page);
+
         List<BoardResponseDto> boardsList = new ArrayList<>();
         forboardList(boardList, boardsList,userId);
-        final int start =page*16;
-        final int end = Math.min((start + 16),boardList.size());
+
+        int start = page * 16;
+        int end = Math.min((start + 16),boardList.size());
+
         return validator.overPages(boardsList, start, end, pageable, page);
+    }
+
+    //page만들기
+    private Pageable getPageable(int page) {
+        Sort.Direction direction = Sort.Direction.DESC ;
+        Sort sort = Sort.by(direction, "createAt");
+        return PageRequest.of(page, 16,sort);
     }
 
     //게시글 업데이트
@@ -112,7 +120,6 @@ public class BoardService {
     }
 
 
-
     //게시글 자세히 보기
     public BoardResponseDto showBoardDetail(Long boardid, Long userId){
         Board board = boardRepository.findBoardById(boardid);
@@ -143,12 +150,6 @@ public class BoardService {
         }
     }
 
-    //page만들기
-    private Pageable getPageable(int page) {
-        page = page -1;
-        Sort.Direction direction = Sort.Direction.ASC ;
-        Sort sort = Sort.by(direction, "createAt");
-        return PageRequest.of(page, 16,sort);
-    }
+
 
 }
