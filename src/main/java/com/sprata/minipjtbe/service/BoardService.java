@@ -118,7 +118,6 @@ public class BoardService {
     }
 
 
-
     //게시글 자세히 보기
     public BoardResponseDto showBoardDetail(Long boardid, Long userId){
         Board board = boardRepository.findBoardById(boardid);

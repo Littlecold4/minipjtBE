@@ -2,6 +2,7 @@ package com.sprata.minipjtbe.controller;
 
 import com.sprata.minipjtbe.dto.IdCheckRequestDto;
 import com.sprata.minipjtbe.dto.SignupRequestDto;
+import com.sprata.minipjtbe.dto.UserInfoDto;
 import com.sprata.minipjtbe.security.UserDetailsImpl;
 import com.sprata.minipjtbe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,9 @@ public class UserRestController {
         return userService.idCheck(idCheckRequestDto);
     }
 
-    @GetMapping("/api/userinfo")
-    public void userInfo(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        System.out.println(userDetails);
+    @PostMapping("/api/user/info")
+    public UserInfoDto userInfo(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return new UserInfoDto(userDetails);
     }
 
 }

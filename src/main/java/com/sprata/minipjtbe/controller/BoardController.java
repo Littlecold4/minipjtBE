@@ -76,11 +76,12 @@ public class BoardController {
     //상세페이지
     @GetMapping("/api/board/detail/{boardid}/{userid}")
     public BoardResponseDto showBoardDetail(@PathVariable Long boardid, @PathVariable Long userid){
-        return boardService.showBoardDetail(boardid,userid);
+        BoardResponseDto responseDto = boardService.showBoardDetail(boardid,userid);
+        return responseDto;
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public Object nullex(Exception e) {
+    public String nullex(IllegalArgumentException e) {
         return e.getMessage();
     }
 

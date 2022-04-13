@@ -36,7 +36,6 @@ public class AuthFailureHandler implements AuthenticationFailureHandler {
                 "exception",
                 errormessage);
 
-        System.out.println(exception.toString());
         String msg = new String (objectMapper.writeValueAsString(data).getBytes("UTF-8"), "ISO-8859-1");
         response.getOutputStream()
                 .println(msg);
