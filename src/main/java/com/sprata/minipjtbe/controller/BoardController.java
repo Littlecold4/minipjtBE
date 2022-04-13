@@ -4,7 +4,6 @@ import com.sprata.minipjtbe.dto.BoardRequestDto;
 import com.sprata.minipjtbe.dto.BoardResponseDto;
 import com.sprata.minipjtbe.security.UserDetailsImpl;
 import com.sprata.minipjtbe.service.BoardService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +15,12 @@ import java.io.IOException;
 @RestController
 public class BoardController {
     private final BoardService boardService;
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String nullex(Exception e) {
+
+        return e.getMessage();
+    }
 
     @Autowired
     public BoardController(BoardService boardService){
@@ -29,8 +34,8 @@ public class BoardController {
                               @RequestParam("headinfo") String headinfo, @RequestParam("topinfo") String topinfo,
                               @RequestParam("bottominfo") String bottominfo, @RequestParam("shoesinfo") String shoesinfo) throws IOException {
         BoardRequestDto boardRequestDto = new BoardRequestDto(title, content, userId, headinfo, topinfo,  bottominfo, shoesinfo);
-        boardService.registBoard(boardRequestDto, file);
-        return "gogo";
+
+        return boardService.registBoard(boardRequestDto, file);
     }
 
     //전체 게시글 조회
@@ -81,15 +86,5 @@ public class BoardController {
         return boardService.showBoardDetail(boardid,userId);
     }
 
-    @PostMapping("/api/test")
-    public void test(@RequestPart("files") MultipartFile file, @RequestParam("fileName") String fileName){
-        System.out.println(file);
-        System.out.println(fileName);
-    }
-
-//    @ExceptionHandler(IllegalArgumentException.class)
-//    public String nullex(Exception e) {
-//        return e.getMessage();
-//    }
 
 }

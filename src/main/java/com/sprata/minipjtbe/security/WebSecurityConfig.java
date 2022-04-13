@@ -130,6 +130,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         skipPathList.add("POST,/api/board/photo");
         skipPathList.add("POST,/api/board/regist");
+        skipPathList.add("POST,/api/board/**");
 
         // 회원 관리 API 허용
         skipPathList.add("GET,/user/**");

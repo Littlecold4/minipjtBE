@@ -13,7 +13,6 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     Board findBoardById(Long id);
     List<Board> findAllByUserId(Long userId);
     Page<Board> findAll(Pageable pageable);
-    Board findBoardByContent(String content);
     int countAllById(Long id);
 
     @Modifying

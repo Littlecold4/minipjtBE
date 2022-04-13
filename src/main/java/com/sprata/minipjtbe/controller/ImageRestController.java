@@ -16,14 +16,6 @@ public class ImageRestController {
         this.imageService = imageService;
     }
 
-    // 사진 등록
-    @PostMapping("/api/board/photo")
-    public void upload(@RequestParam("files") MultipartFile file, @RequestParam("boardId") Long id) throws IOException {
-        System.out.println(file);
-        System.out.println(id);
-//        imageService.upload(imageRequestDto, "static");
-    }
-
     // 사진 삭제
     @DeleteMapping("/api/board/photo/{imageid}")
     public void deleteImage(@PathVariable Long imageid){

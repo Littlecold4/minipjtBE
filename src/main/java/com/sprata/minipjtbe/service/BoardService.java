@@ -4,6 +4,7 @@ package com.sprata.minipjtbe.service;
 import com.sprata.minipjtbe.dto.BoardRequestDto;
 import com.sprata.minipjtbe.dto.BoardResponseDto;
 import com.sprata.minipjtbe.dto.ImageRequestDto;
+
 import com.sprata.minipjtbe.dto.UserInfoDto;
 import com.sprata.minipjtbe.model.Board;
 import com.sprata.minipjtbe.model.Favorite;
@@ -28,6 +29,7 @@ public class BoardService {
     private final Validator validator;
     private final CommentRepository commentRepository;
     private final ImageRepository imageRepository;
+
     private final ImageService imageService;
 
     public String registBoard(BoardRequestDto boardRequestDto, MultipartFile file) throws IOException {
@@ -44,7 +46,7 @@ public class BoardService {
         Pageable pageable = getPageable(page);
         List<BoardResponseDto> boardsList = new ArrayList<>();
         forboardList(boardList, boardsList,userId);
-        final int start =(int)pageable.getOffset();
+        final int start =page*16;
         final int end = Math.min((start + 16),boardList.size());
         return validator.overPages(boardsList, start, end, pageable, page);
     }

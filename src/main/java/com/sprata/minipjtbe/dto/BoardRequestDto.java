@@ -18,6 +18,7 @@ public class BoardRequestDto {
     private String shoesinfo;
 
 
+
     public BoardRequestDto(String title, String content, Long userId, String headinfo, String topinfo, String bottominfo, String shoesinfo) {
         this.title = title;
         this.content = content;
