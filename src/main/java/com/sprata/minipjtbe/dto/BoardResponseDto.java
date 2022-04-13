@@ -22,6 +22,9 @@ public class BoardResponseDto {
     private String url;
     private Long imageId;
 
+    public BoardResponseDto() {
+    }
+
     public BoardResponseDto(Board board, int like, UserInfoDto userinfo, boolean mylike, String url, Long imageId){
         this.boardId= board.getId();
         this.title= board.getTitle();
