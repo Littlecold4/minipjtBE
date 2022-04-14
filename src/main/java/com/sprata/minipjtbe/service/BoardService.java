@@ -40,12 +40,10 @@ public class BoardService {
 
     //모든 게시글 보기
     public Page<BoardResponseDto> showAllBoard(int page, Long userId){
-        List<Board> boardList= boardRepository.findAll();
         Pageable pageable = getPageable(page);
-
+        List<Board> boardList= boardRepository.findAll();
         List<BoardResponseDto> boardsList = new ArrayList<>();
         forboardList(boardList, boardsList,userId);
-
         int start = page * 16;
         int end = Math.min((start + 16),boardList.size());
 
@@ -76,6 +74,7 @@ public class BoardService {
         boardRepository.deleteById(id);
         favoriteRepository.deleteAllByBoardId(id);
         commentRepository.deleteAllByBoardId(id);
+        imageService.deleteFile(imageRepository.findByBoardId(id).getId());
         return "삭제 완료하였습니다";
     }
 
